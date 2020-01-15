@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>vue学习教程</title>
+</head>
+<body>
+    <!--声明式的渲染-->
+
+    <!--文本插值-->
+   <!-- <div id="app">
+        {{message}}
+    </div>-->
+    <!--指令绑定-->
+   <!-- <div id="app2" v-bind:title="message">
+        鼠标悬停的时候会展示提示信息
+    </div>-->
+
+    <!--条件和循环指令 v-if 和v-for指令-->
+    <div id="app3">
+       <p v-if="seen">能看到</p>
+        <p v-show="seen">不能看到</p>
+    </div>
+   <div id="app4"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript">
+        let vue = new Vue({
+            el:'#app3',
+            data:{
+                message:'hello world',
+                seen:false
+            }
+        })
+
+    </script>
+</body>
+</html>
