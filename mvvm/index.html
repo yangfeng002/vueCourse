@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mvvm-基础入门</title>
+</head>
+<body>
+     <div id="app">
+       <h2>
+           {{person.name}}--{{person.age}}
+       </h2>
+         <h3>
+             {{person.fav}}
+             <p>test</p>
+         </h3>
+         <div>
+             {{msg}}
+         </div>
+         <div v-text="msg"></div>
+         <div v-html="htmlStr"></div>
+         <input type="text" v-model="msg">
+     </div>
+    <!-- <script src="lib/vue.js" type="text/javascript"></script>-->
+     <script type="text/javascript" src="./mVue.js"></script>
+     <script type="text/javascript">
+         /*执行相关代码，采用es6的语法*/
+         let vue = new MVue({
+             el:'#app',
+             data:{
+                 person:{
+                     name:'小马哥',
+                     age:18,
+                     fav:'姑娘'
+                 },
+                 msg:"mvvm的实现原理",
+                 htmlStr:'htmlStr'
+             }
+         })
+
+
+     </script>
+</body>
+</html>
