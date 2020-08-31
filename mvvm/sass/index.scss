@@ -1,0 +1,55 @@
+.main{
+	.panel-info{
+		.panel-heading{
+			text-align: center;
+			.panel-title{
+				padding: 0 0 10px 0;
+			}
+		}
+	}
+	.btn-group{
+		margin: 20px 0 0 0;
+		.btn{
+			width: 33.3333333333333%;
+		}
+	}
+	.panel-body{
+		.line-through{
+			text-decoration: line-through;
+		}
+		.selected{
+			background:#5a80a1;
+			color: #fff;
+		}
+	}
+	
+}
+/* 多项选择样式处理 */
+#my{
+	.panel-height{
+		min-height: 300px;
+		.selected{
+			//选中样式
+			    background: #c1e1c1;
+			    color: #eb4343;
+		}
+	}
+	ul{
+		li{
+			    border: 1px solid #c8ccc9;
+			    display: inline-block;
+			    padding: 8px 25px;
+				margin: 0 10px 10px 0;
+		}
+		.del{
+			 cursor: pointer;
+		}
+	}
+}
+/* 购物车 */
+#shopCart{
+	.product-imgage{
+		width: 40px;
+		height: 40px;
+	}
+}

@@ -1,0 +1,35 @@
+@charset "UTF-8";
+.main .panel-info .panel-heading {
+  text-align: center; }
+  .main .panel-info .panel-heading .panel-title {
+    padding: 0 0 10px 0; }
+.main .btn-group {
+  margin: 20px 0 0 0; }
+  .main .btn-group .btn {
+    width: 33.3333333333333%; }
+.main .panel-body .line-through {
+  text-decoration: line-through; }
+.main .panel-body .selected {
+  background: #5a80a1;
+  color: #fff; }
+
+/* 多项选择样式处理 */
+#my .panel-height {
+  min-height: 300px; }
+  #my .panel-height .selected {
+    background: #c1e1c1;
+    color: #eb4343; }
+#my ul li {
+  border: 1px solid #c8ccc9;
+  display: inline-block;
+  padding: 8px 25px;
+  margin: 0 10px 10px 0; }
+#my ul .del {
+  cursor: pointer; }
+
+/* 购物车 */
+#shopCart .product-imgage {
+  width: 40px;
+  height: 40px; }
+
+/*# sourceMappingURL=index.css.map */

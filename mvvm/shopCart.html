@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue购物车功能</title>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap-theme.css"/>
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	</head>
+	<body>
+		<div id="shopCart" class="container-fluid">
+		  <div class="panel panel-success">
+			  <!-- 头部-->
+			  <div class="panel-heading">
+				  <h3 class="panel-title">vue监听查询购物车数量及金额的变化</h3>
+			  </div>
+			  <div class="panel-body">
+				  <div class="input-group">
+					  <span class="input-group-btn">
+						  <button class="btn btn-success" type="button">名称搜索</button>
+					  </span>
+					  <input type="text" class="form-control" placeholder="请输入查询内容">
+				  </div>
+			  </div>
+			<!-- 内容 -->
+			<div class="panel-body">
+				<table class="table table-condensed table-bordered">
+				   <thead>
+					   <tr>
+						   <td>图片</td>
+						   <td>商品名称</td>
+						   <td>商品数量</td>
+						   <td>商品单价</td>
+						   <td>商品金额</td>
+						   <td>操作</td>
+					   </tr>
+				   </thead>
+				   <tbody>
+					   <tr v-for="(v,i) in items" :key="i">
+						  <td><img :src="v.url" alt="" class="product-imgage"></td>
+						  <td>{{v.name}}</td>
+						  <td>
+						    <button :disabled="v.count==0" @click="v.count--">-</button>
+						    {{v.count}}
+							<button @click="v.count++">+</button>
+							</td>
+						  <td>{{v.price | priceFilters(2)}}</td>
+						  <td>{{v.count*v.price | priceFilters(2)}}</td>	
+						  <td>
+							  <button type="button" class="btn btn-success btn-sm">商品详情</button>
+						  </td>	  
+					   </tr>
+					   <tr>
+						   <td colspan="6">{{totalCount}}件商品总计(不含运费)：{{totalPrice}}</td>
+					   </tr>
+				   </tbody>
+				</table>
+			</div>
+		  </div>	  
+			
+			
+		</div>
+		<script type="text/javascript" src="lib/vue/vue.js"></script>
+		<script src="lib/bootstrap/js/jquery.min.js"></script>
+		<script src="lib/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			  new Vue({
+				  el:'#shopCart',
+				  data:{
+					items:[
+						{"name":"苹果","price":6,count:4,url:'./images/苹果.jpg'},
+						{"name":"桃子","price":3,count:2,url:'./images/桃子.jpg'},
+						{"name":"西瓜","price":1.5,count:1,url:'./images/西瓜.jpg'},
+						{"name":"百香果","price":12,count:2,url:'./images/百香果.jpg'},
+						{"name":"火龙果","price":8,count:3,url:'./images/火龙果.jpg'},
+						{"name":"苹果1","price":5.5,count:1,url:'./images/苹果.jpg'},
+						/* {"name":"苹果2","price":6.5,count:1,url:'./images/苹果2.jpg'},
+						{"name":"苹果3","price":7,count:2,url:'./images/苹果3.jpg'},
+						{"name":"苹果4","price":8,count:1,url:'./images/苹果4.jpg'},
+						{"name":"苹果5","price":10,count:1,url:'./images/苹果5.jpg'},
+						{"name":"苹果6","price":12,count:1,url:'./images/苹果6.jpg'}		 */		
+						]  
+				  },
+				  methods:{
+					  
+				  },
+				  filters:{
+					 //过滤器是一种管道思想
+					 /* priceFilters:function(data){
+						  return "￥"+data.toFixed(2);
+					  }, */
+					  priceFilters:(v,n)=>"￥"+v.toFixed(n)
+					  
+				  },
+				  computed:{
+					 totalCount:function(){
+						 /* var n = 0;
+						 this.items.forEach(function(item,index){
+							 n+=item.count;
+						 })
+						 return n; */
+						 //累加器 reduce
+						return  this.items.reduce(function(prev,curr,index,arr){
+							return prev+curr.count
+						 },0)
+						 //return sum;
+					 },
+					 totalPrice:function(){
+						 return this.items.reduce(function(prev,curr,index,arr){
+							 return prev+curr.count*curr.price
+						 },0)
+					 }
+				  }
+			  })
+		</script>
+	</body>
+</html>

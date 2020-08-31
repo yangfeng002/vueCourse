@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>多项选择框例子</title>
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap-theme.css"/>
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+</head>
+<body>
+	<div id="my">
+		<div class="container">
+			<div class="row">
+				<!-- 左侧选择省份 -->
+				<div class="col-xs-6 cos-sm-6">
+					<div class="panel panel-success">
+						<!-- 标题部分 -->
+						<div class="panel-heading">
+							<h3 class="panel-title">省份({{leftData.length}})/当前选中({{rightData.length}})</h3>
+						</div>
+						<!-- 内容 -->
+						<div class="panel-body panel-height">
+							<ul>
+								<li :class="v.flag?'selected':''" @click="add(v)" v-for="(v,i) in leftData" :key="i">{{v.name}}</li>
+							</ul>  
+						</div>
+					</div>
+				</div>
+				<!-- 右侧选择省份 -->
+				<div class="col-xs-6 col-sm-6">
+					<div class="panel panel-success">
+						<div class="panel-heading">
+						   <h3 class="panel-title">已选择省份({{rightData.length}})</h3>
+						</div>
+						<div class="panel-body panel-height">
+							<ul>
+								<li v-for="(v,i) in rightData" :key="i" @mouseover="flag=i" @mouseout="flag='hide'">
+								{{v.name}}	
+								<sup class="del" @click="del(v)" v-show="flag==i">x</sup>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="lib/vue/vue.js"></script>
+	<script src="lib/bootstrap/js/jquery.min.js"></script>
+	<script src="lib/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+			var vue = new Vue({
+				el:'#my',
+				data:{
+				   "leftData":[
+					   {"name":"北京","id":"1","flag":false},
+                       {"name":"上海","id":"2","flag":false},
+				       {"name":"天津","id":"3","flag":false},
+				       {"name":"辽宁","id":"4","flag":false}],
+					"rightData":[], 
+					"flag":"hide"
+				},
+				methods:{
+				   add(item){
+					   item.flag = true;
+					   //利用Set集合
+                        this.rightData.push(item);
+					    this.rightData = [...new Set(this.rightData)];
+					   
+				   },
+				   del(item){
+					   item.flag = false;
+					   var i = this.rightData.findIndex((currValue,index)=> item.id==currValue.id)
+					   this.rightData.splice(i,1);
+					   
+				   }
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>vue学习计划制定</title>
+		<link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	</head>
+	<body>
+		<div id="app" class="container main" v-cloak>
+			
+			<div class="panel panel-info" style="margin: 20px;">
+				<!-- header -->
+				<div class="panel-heading">
+					<h3 class="panel-title">vue定制学习计划</h3>
+					<div>
+						<a>共有<span class="badge">{{items.length}}</span></a>
+						<a>已完成<span class="badge">{{completed}}</span></a>
+						<a>未完成<span class="badge">{{uncomplete}}</span></a>
+					</div>
+				</div>
+				<!-- 内容页 -->
+				<div class="panel-body">
+					<!-- 输入框组 -->
+					<div class="input-group">
+					  <input type="text" class="form-control"  v-model="input" placeholder="输入计划名称后,按Enter键">
+					  <span class="input-group-btn">
+						<button class="btn btn-primary" type="button" @click="addPlan" :disabled="!input">添加计划</button>
+					  </span>
+					</div>
+					<!-- 按钮组 -->
+					<div class="btn-group btn-group-justified" role="group">
+					  <button type="button" class="btn btn-default" :class="cur==1?'selected':''" @click="filterItem(1)">所有计划</button>
+					  <button type="button" class="btn btn-default" :class="cur==2?'selected':''" @click="filterItem(2)">已完成</button>
+					  <button type="button" class="btn btn-default" :class="cur==3?'selected':''" @click="filterItem(3)">未完成</button>
+					</div>
+					<ul class="list-group">
+						 <li class="list-group-item" v-for="(v,index) in newItems" :key="index">
+							<input type="checkbox" v-model="v.check"/>
+							<span :class="v.check?'line-through':''">{{v.name}}</span>
+							<a class="badge" @click="delPlan(v)">删除</a>
+						 </li>
+					</ul>
+				</div>
+				
+			</div>
+			
+		</div>
+		<script type="text/javascript" src="lib/vue/vue.js"></script>
+		<script src="lib/bootstrap/js/jquery.min.js"></script>
+		<script src="lib/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		    
+			new Vue({
+				el:'#app',
+				data:{
+					"input":'',
+					"items":[
+						{"name":"学习计划1",check:true},
+						{"name":"学习计划2",check:false},
+						{"name":"学习计划3",check:false}
+						],
+					"newItems":[],
+					"cur":1
+				},
+				methods:{
+					addPlan(){
+					    //判断是否为空
+						/* if(!input){
+							alert("非空");
+							return false;
+						} */
+						this.items.unshift({"name":this.input,check:false});
+						this.input = '';//清除内容
+					},
+					delPlan(v){
+						var i = this.items.findIndex(item=> item.name==v.name)
+						this.items.splice(i,1); //删除执行splice()方法
+						this.filterItem(this.cur);
+					},
+					filterItem(n){
+					   //筛选数据
+					  this.cur = n;
+					  switch(n){
+						case 2:
+						  this.newItems = this.items.filter(item=>item.check)
+						  break;
+					    case 3:
+						  this.newItems = this.items.filter(item=>!item.check)
+						  break;
+						default:
+						  this.newItems = this.items;
+						  break;
+						  
+					  }	 
+						   
+					}
+				},
+				computed:{
+					//数据发生变化时调用
+					completed(){
+						return  this.items.filter(item=>item.check).length;
+					},
+					uncomplete(){
+						return this.items.filter(item=>!item.check).length;
+					}
+				},
+				components:{
+					
+				},
+				mounted:function(){
+					this.filterItem(this.cur);
+				}
+			})
+		</script>
+			
+	</body>
+</html>
